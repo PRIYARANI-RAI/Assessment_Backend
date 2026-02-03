@@ -18,14 +18,38 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
-**Assessment_Backend** – NestJS backend for the WellVantage Assessment.
+**Assessment_Backend** – NestJS backend for the WellVantage Assessment (Workout Management, Availability, Book Slots). Built for the React Native UI.
+
+Features:
+- **Auth**: Sign up / Sign in with Google (ID token from React Native)
+- **Workout Plans**: Add, list, get, update, delete custom plans (with days and exercises)
+- **Availability**: Set availability slots (date, time range, session name, repeat)
+- **Slots**: Get available slots by date, book slot, list/cancel bookings
 
 Built with [Nest](https://github.com/nestjs/nest) framework TypeScript starter.
+
+## Environment
+
+- `MONGODB_URI` – MongoDB connection string (default: `mongodb://localhost:27017/assessment`)
+- `GOOGLE_CLIENT_ID` – Google OAuth 2.0 client ID (for verifying ID tokens from React Native)
+- `JWT_SECRET` – Secret for signing JWTs (use a strong value in production)
+
+## API base & docs
+
+- Base URL: `http://localhost:3000/api`
+- Swagger UI: `http://localhost:3000/api/docs`
+
+| Area | Endpoints |
+|------|-----------|
+| **Auth** | `POST /api/auth/google` (body: `{ "idToken": "..." }`), `GET /api/auth/me` (Bearer) |
+| **Workout Plans** | `GET/POST /api/workout-plans`, `GET/PATCH/DELETE /api/workout-plans/:id` |
+| **Availability** | `GET/POST /api/availability`, `GET/PATCH/DELETE /api/availability/:id` |
+| **Slots** | `GET /api/slots/available?date=YYYY-MM-DD`, `POST /api/slots/book`, `GET /api/slots/my-bookings`, `DELETE /api/slots/bookings/:id` |
+
+All protected routes require `Authorization: Bearer <accessToken>` (returned from `POST /api/auth/google`).
 
 ## Project setup
 
@@ -88,12 +112,6 @@ Check out a few resources that may come in handy when working with NestJS:
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
